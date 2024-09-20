@@ -1,12 +1,33 @@
 import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 
-export const sideLengthAtom = atom<number>(0);
-export const priceAtom = atom<number>(0);
+// atomWithStorage, key
+const sideLengthAtom = atomWithStorage<number>("length", 0);
+
+// readWrite
+export const readWriteLengthAtom = atom(
+  (get) => get(sideLengthAtom),
+  (get, set, length: number) => {
+    if (typeof length === "number") {
+      set(sideLengthAtom, length);
+    }
+  }
+);
+
+// writeOnly
+export const writeOnlyLengthAtom = atom(null, (get, set, length: number) => {
+  if (typeof length === "number") {
+    set(sideLengthAtom, length);
+  }
+});
+
+export const priceAtom = atomWithStorage<number>("price", 0);
 
 export const fenceCostAtom = atom(
   (get) => get(sideLengthAtom) * 4 * get(priceAtom)
 );
 
+// readOnly
 export const readOnlyPerimeterAtom = atom<number>(
   (get) => get(sideLengthAtom) * 4
 );

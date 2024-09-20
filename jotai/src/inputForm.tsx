@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "./App.css";
 import { useAtom } from "jotai";
-import { priceAtom, sideLengthAtom } from "./atoms";
+import { priceAtom, readWriteLengthAtom } from "./atoms";
 
 export function InputForm() {
   // atom
-  const [, setSideLength] = useAtom(sideLengthAtom);
+  const [length, setSideLength] = useAtom(readWriteLengthAtom);
   const [, setPrice] = useAtom(priceAtom);
   const [value, setValue] = useState({ side_length: 0, price: 0 });
 
@@ -26,6 +26,7 @@ export function InputForm() {
 
   return (
     <div className="column">
+      Length: {length}
       <input
         className="textbox"
         type="number"
