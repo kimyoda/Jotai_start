@@ -1,14 +1,14 @@
 import { useAtom } from "jotai";
-import { sideLengthAtom } from "./atoms";
+import { readOnlyAreaAtom } from "./atoms";
 
 export function Area() {
-  const [sideLength] = useAtom(sideLengthAtom);
+  const [area] = useAtom(readOnlyAreaAtom);
 
   return (
     <div className="row">
       <div>Area (square)</div>
       <div>
-        <div>{sideLength * sideLength}</div>
+        <div>{area}</div>
       </div>
     </div>
   );
