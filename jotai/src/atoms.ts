@@ -39,3 +39,13 @@ export const readOnlyAreaAtom = atom<number>(
 export const readOnlyVolumeAtom = atom<number>(
   (get) => get(sideLengthAtom) * get(sideLengthAtom) * get(sideLengthAtom)
 );
+
+export const jokeAtom = atom({ setup: "", punchline: "" });
+
+export const jokeObjectAtom = atom(
+  async (get) => get(jokeAtom),
+  async (_get, set, url: string) => {
+    const response = await fetch(url);
+    set(jokeAtom, await response.json());
+  }
+);
